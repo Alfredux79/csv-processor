@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/file
+			http://www.springframework.org/schema/integration/file/spring-integration-file.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
+
+	<bean id="recipientListRouter" class="org.springframework.integration.router.RecipientListRouter"/>
+
+	<file:inbound-channel-adapter 
+		id="csvFiles"
+		auto-startup="true" 
+		directory="file:filesystem/input"
+		channel="csvFilesChannel" 
+		use-watch-service="true" 
+		watch-events="CREATE" 
+		prevent-duplicates="false"
+		ignore-hidden="true">		
+		<integration:poller id="csvFilePoller" 
+			fixed-delay="200" 
+			default="true" 
+			max-messages-per-poll="1" 
+			receive-timeout="100"/>	  
+	</file:inbound-channel-adapter>
+
+	<file:file-to-bytes-transformer 
+		input-channel="csvFilesChannel" 
+		output-channel="routingChannel" 
+		delete-files="true"/>
+
+	<integration:recipient-list-router 
+			id="customRouter" 
+			input-channel="routingChannel" 
+			send-timeout="1000"
+	        ignore-send-failures="true"
+	        apply-sequence="true">
+	  <integration:recipient channel="csvProcessingChannel"/>
+	  <integration:recipient channel="saveProcessedFileChannel"/>
+	</integration:recipient-list-router>
+
+	<integration:service-activator 
+		id="csvFileProcessor"
+		async="true" 
+		input-channel="csvProcessingChannel" 
+		ref="csvImportService"
+		method="importCsv"
+		output-channel="outputChannel"/>
+
+	<integration:outbound-channel-adapter 
+		id="outputChannel" 
+		ref="exportExcelService" 
+		method="exportExcel"/>
+
+	<integration:service-activator 
+		input-channel="saveProcessedFileChannel"
+	    output-channel="filesOut"
+        ref="handler"/>
+
+	<file:outbound-channel-adapter 
+		id="filesOut" 
+		directory="file:filesystem/processed"/>
+		
+</beans>

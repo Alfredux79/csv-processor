@@ -1,7 +1,8 @@
-# csv-processor
-Spring Integration Practice Project
+## Spring Integration Practice Project: csv-processor
 
 This is a SpringBoot project to do very simple practice of the [enterprise integration patterns](http://www.enterpriseintegrationpatterns.com/) using the spring framework.
+
+# System Description:
 
 The system does the following:
 
@@ -13,3 +14,10 @@ The system does the following:
 - and outbound [channel adapter](http://www.enterpriseintegrationpatterns.com/patterns/messaging/ChannelAdapter.html) ends the circuit on the backup side saving the file to the processed folder.
 
 ![spring-integration-diagram](https://user-images.githubusercontent.com/23134342/40877852-ca8b0ef0-6687-11e8-8185-a76a66bffb94.png)
+
+# Usage:
+
+'''
+git clone https://github.com/Alfredux79/csv-processor.git
+mvn spring-boot:run
+'''

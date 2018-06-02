@@ -33,5 +33,9 @@ git clone https://github.com/Alfredux79/csv-processor.git
 mvn spring-boot:run
 ```
 ### Step 2: Move some files
-
-
+- When the program starts it creates the **filesystem** folder, with the **input** and **processed** folders inside and an empty H2 database that can be checked at the url http://localhost:8080/console
+- There is a sample csv file at the resources folder.
+- Copy the file to the input folder and 2 things should happen:
+  - The file has been moved from the input folder to the processed folder
+  - A record has been written to the H2 database with the contents of the file
+  

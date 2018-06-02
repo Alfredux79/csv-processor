@@ -1,6 +1,6 @@
 # Spring Integration Practice Project: csv-processor
 
-This is a SpringBoot project to do very simple practice of the [enterprise integration patterns](http://www.enterpriseintegrationpatterns.com/) using the spring framework.
+This is a SpringBoot project to do a very simple practice of the [enterprise integration patterns](http://www.enterpriseintegrationpatterns.com/) using the spring framework.
 
 ## System Description:
 

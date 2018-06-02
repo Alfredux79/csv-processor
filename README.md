@@ -6,8 +6,7 @@ This is a SpringBoot project to do very simple practice of the [enterprise integ
 
 The system does the following:
 
-- Reads csv files from a folder using an inbound [channel adapter](http://www.enterpriseintegrationpatterns.com/patterns/messaging/ChannelAdapter.html)
-- Places the file to a [channel](http://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageChannel.html) 
+- Reads csv files from a folder using an inbound [channel adapter](http://www.enterpriseintegrationpatterns.com/patterns/messaging/ChannelAdapter.html) and places the file to a [channel](http://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageChannel.html) that we call "csvFilesChannel"
 - A [transformer](http://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageTranslator.html) reads the file from the channel and transorms it to a byte array and sends it  to another data channel
 - A [recipipent-list-router](http://www.enterpriseintegrationpatterns.com/patterns/messaging/RecipientList.html) sends the message to two different channels, one for processing and one for saving a backup of the processed file.
 

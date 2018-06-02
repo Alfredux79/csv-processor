@@ -19,7 +19,7 @@ public class ExcelExportService {
 	
 	public void exportExcel(List<CsvData> data) {
 		
-		File ouptuFile = new File("filesystem/output/csvdata-"+System.currentTimeMillis()+".xls");
+		File outputFile = new File("filesystem/output/csvdata-"+System.currentTimeMillis()+".xls");
 		
 		XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("MAIN");
@@ -37,7 +37,9 @@ public class ExcelExportService {
         }
 
         try {
-            FileOutputStream outputStream = new FileOutputStream(ouptuFile);
+        	log.info("Saving file into {}",outputFile.getParentFile().getAbsolutePath());
+        	outputFile.getParentFile().mkdirs();
+            FileOutputStream outputStream = new FileOutputStream(outputFile);
             workbook.write(outputStream);
             workbook.close();
         } catch (IOException e) {

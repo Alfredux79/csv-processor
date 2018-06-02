@@ -6,7 +6,7 @@ This is a SpringBoot project to do a very simple practice of the [enterprise int
 
 The system does the following:
 
-- Reads csv files from a folder using an inbound [channel adapter](http://www.enterpriseintegrationpatterns.com/patterns/messaging/ChannelAdapter.html) and places the file to a [channel](http://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageChannel.html) called *"csvFilesChannel"*
+- Reads csv files from a folder using an inbound [channel adapter](http://www.enterpriseintegrationpatterns.com/patterns/messaging/ChannelAdapter.html) and places them into a [channel](http://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageChannel.html) called *"csvFilesChannel"*
 - A [transformer](http://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageTranslator.html) reads the file from the channel and transorms it to a byte array and sends it  to another channel called *"routingChannel"*.
 - The *"routingChannel"* sends the files to a [recipipent-list-router](http://www.enterpriseintegrationpatterns.com/patterns/messaging/RecipientList.html) that duplicates the message to two different channels, one for processing called *"csvProcessingChannel"* and one for saving a backup of the processed file called *"saveProcessedFileChannel"*.
 

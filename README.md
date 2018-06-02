@@ -12,8 +12,9 @@ The system does the following:
 
   - *"routingChannel"* flow:
 
-    - A [service activator](http://www.enterpriseintegrationpatterns.com/patterns/messaging/MessagingAdapter.html) calls a service to process the file from the processing channel and store it's contents in a relation database.
-
+    - A [service activator](http://www.enterpriseintegrationpatterns.com/patterns/messaging/MessagingAdapter.html) calls a service to process the file from the processing channel and store it's contents in a relational database.
+    - After processing the file the message is sent to an outbound channel adapter that ends the flow.
+    
   - *"saveProcessedFileChannel"* flow:
 
     - An outbound [channel adapter](http://www.enterpriseintegrationpatterns.com/patterns/messaging/ChannelAdapter.html) ends the circuit on the backup side saving the file to the processed folder.
